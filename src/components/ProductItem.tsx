@@ -1,8 +1,8 @@
-import React from 'react';
+import React = require('react');
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function ProductItem() {
-  return (
+  return ( 
     <View style={styles.container}>
       <Text>ProductItem</Text>
     </View>
