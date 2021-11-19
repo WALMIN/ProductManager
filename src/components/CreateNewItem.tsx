@@ -7,7 +7,7 @@ export default function CreateNewItem() {
         <Text style={styles.label}>Create New Product</Text>
         <View style={styles.inputContainer}>
         <TextInput style={styles.input} placeholder='Name'/>
-        <TextInput style={styles.input} placeholder='Price'/>
+        <TextInput style={styles.input} placeholder='Price'keyboardType='numeric'/>
         <TextInput style={styles.input} placeholder='Product Type'/>
         </View>
         <View style={styles.saveButtonContainer}>
