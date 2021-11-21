@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CreateNewItem() {
     return ( 
