@@ -3,6 +3,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import ProductList from './src/screens/ProductList';
 
+
+
 export default function App() {
   return (
     <View style={styles.container}>
@@ -15,7 +17,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: 'gray',
     alignItems: 'center',
     justifyContent: 'center',
   },
