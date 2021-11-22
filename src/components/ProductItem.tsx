@@ -19,7 +19,7 @@ export const ProductItem: React.FC<IProductItemComponent> = (props) => {
       <Card.Content style={styles.content}>
         <View style={styles.info}>
           <Text>{props.name}</Text>
-          <Text>{props.price}</Text>
+          <Text>${props.price}</Text>
           <Text>{props.type}</Text>
         </View>
         <View style={styles.spacer}></View>
