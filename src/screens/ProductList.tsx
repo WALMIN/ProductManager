@@ -1,14 +1,12 @@
 import * as React from 'react';
 import { StyleSheet, View, SafeAreaView} from 'react-native';
 import { FAB } from 'react-native-paper';
-import NavBar from './NavBar';
 
 
 
 const MyComponent = () => (
   <SafeAreaView >
   <View style={styles.header}>
-    <NavBar />
   <FAB
     style={styles.fab}
     icon="plus"
@@ -28,8 +26,8 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: '#C12121',
     margin: 40,
-    right: -199,
-    bottom: -400,
+    right: 1,
+    bottom: 1,
   },
 })
 
