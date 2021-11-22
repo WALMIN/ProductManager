@@ -3,7 +3,9 @@ import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ProductsContext } from "../context/ProductsProvider";
 
-export default function CreateNewItem() {
+export default function CreateNewItem(props: {
+  navigation: { navigate: (name: string) => void };
+}) {
   const { products, addProduct } = useContext(ProductsContext);
 
   const [name, setname] = useState("");
@@ -44,12 +46,19 @@ export default function CreateNewItem() {
               price: Number(price),
               type: productType,
             });
+
+            props.navigation.navigate("ProductList");
           }}
         />
       </View>
 
       <View style={styles.cancelButtonContainer}>
-        <Button title="Cancel" onPress={alert} />
+        <Button
+          title="Cancel"
+          onPress={() => {
+            props.navigation.navigate("ProductList");
+          }}
+        />
       </View>
     </View>
   );
