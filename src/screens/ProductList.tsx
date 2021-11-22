@@ -7,7 +7,6 @@ import { ProductsContext } from "../context/ProductsProvider";
 
 export default function ProductList(props: any) {
   const { products } = useContext(ProductsContext);
-  const [clickedItem, setClickedItem] = useState<number>();
 
   const render = ({ item }: { item: IProductItem }) => {
     return (
@@ -17,7 +16,7 @@ export default function ProductList(props: any) {
         price={item.price}
         type={item.type}
         onClick={() => {
-          console.log("Click");
+          props.navigation.navigate("CreateNewItem");
         }}
       />
     );
@@ -34,7 +33,9 @@ export default function ProductList(props: any) {
         <FAB
           style={styles.fab}
           icon="plus"
-          onPress={() => props.navigation.navigate("CreateNewItem")}
+          onPress={() => {
+            props.navigation.navigate("CreateNewItem");
+          }}
         />
       </View>
     </SafeAreaView>
