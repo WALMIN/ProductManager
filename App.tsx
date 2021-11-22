@@ -1,22 +1,23 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import ProductList from './src/screens/ProductList';
-
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { StackScreens } from "./src/helpers/types";
+import ProductList from "./src/screens/ProductList";
+import { Title } from 'react-native-paper';
 export default function App() {
+  const Stack = createNativeStackNavigator<StackScreens>();
   return (
-    <View style={styles.container}>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="ProductList">
+        <Stack.Screen
+          name="ProductList"
+          component={ProductList}
+          options={{title: "Items"}}
+        />
+      </Stack.Navigator>
       <ProductList />
-      <StatusBar style="auto" />
-    </View>
+      
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
