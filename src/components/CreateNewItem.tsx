@@ -1,19 +1,32 @@
-import React from 'react'
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useState } from 'react'
+import { Button, StyleSheet, Text, TextInput, View, } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function CreateNewItem() {
+    const [name, setname] = useState('')
+    const [price, setprice] = useState(0)
+    const [productType, setproductType] = useState('')
+
+    let obj = {  
+        itemId: '',
+        name: '',
+        price: 0,
+        productType: '' 
+      }  
+    
     return ( 
       <View style={styles.container}>
         <Text style={styles.label}>Create New Product</Text>
         <View style={styles.inputContainer}>
-        <TextInput style={styles.input} placeholder='Name'/>
-        <TextInput style={styles.input} placeholder='Price'keyboardType='numeric'/>
-        <TextInput style={styles.input} placeholder='Product Type'/>
+            
+        <TextInput style={styles.input} placeholder='Name'onChangeText = {setname}/>
+        <TextInput style={styles.input} placeholder='Price' keyboardType='numeric' onChangeText = {setprice.toString}/>
+        <TextInput style={styles.input} placeholder='Product Type' onChangeText = {setproductType}/>
         </View>
         <View style={styles.saveButtonContainer}>
-            <Button title="Save" onPress={alert} />
+            <Button title="Save" onPress={()=>{AsyncStorage.setItem('item',JSON.stringify(obj)); }} />
         </View>
+        
         <View style={styles.cancelButtonContainer}>
             <Button title="Cancel" onPress={alert} />
         </View>
@@ -21,8 +34,11 @@ export default function CreateNewItem() {
 
 
       </View>
-    );
+      
+    );console.log(obj)
+    
   }
+  
   
   const styles = StyleSheet.create({
     container: {
