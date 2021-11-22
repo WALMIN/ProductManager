@@ -1,5 +1,5 @@
-import React from 'react';
-import CreateNewItem from './src/components/CreateNewItem';
+import React from "react";
+import CreateNewItem from "./src/components/CreateNewItem";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StackScreens } from "./src/helpers/types";
@@ -28,4 +28,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
