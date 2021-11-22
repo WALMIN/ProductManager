@@ -5,7 +5,9 @@ import { FAB } from "react-native-paper";
 import { ProductItem, IProductItem } from "../components/ProductItem";
 import { ProductsContext } from "../context/ProductsProvider";
 
-export default function ProductList(props: any) {
+export default function ProductList(props: {
+  navigation: { navigate: (name: string) => void };
+}) {
   const { products } = useContext(ProductsContext);
 
   const render = ({ item }: { item: IProductItem }) => {
