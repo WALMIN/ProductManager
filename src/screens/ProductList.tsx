@@ -1,32 +1,13 @@
-import * as React from 'react';
-import { useState } from 'react';
-import { StyleSheet, View, SafeAreaView, Text, FlatList } from 'react-native';
-import { FAB } from 'react-native-paper';
-import { ProductItem, IProductItem } from '../components/ProductItem';
+import * as React from "react";
+import { useState, useContext } from "react";
+import { StyleSheet, View, SafeAreaView, FlatList } from "react-native";
+import { FAB } from "react-native-paper";
+import { ProductItem, IProductItem } from "../components/ProductItem";
+import { ProductsContext } from "../context/ProductsProvider";
 
-export default function ProductList() {
+export default function ProductList(props: any) {
+  const { products } = useContext(ProductsContext);
   const [clickedItem, setClickedItem] = useState<number>();
-
-  const test: IProductItem[] = [
-    {
-      id: 0,
-      name: "Test 0",
-      price: 0,
-      type: 0
-    },
-    {
-      id: 1,
-      name: "Test 1",
-      price: 1,
-      type: 1
-    },
-    {
-      id: 2,
-      name: "Test 2",
-      price: 2,
-      type: 2
-    }
-  ]
 
   const render = ({ item }: { item: IProductItem }) => {
     return (
@@ -35,39 +16,43 @@ export default function ProductList() {
         name={item.name}
         price={item.price}
         type={item.type}
-        onClick={() => setClickedItem(item.id)} />
-    )
-  }
+        onClick={() => {
+          console.log("Click");
+        }}
+      />
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
-        data={test}
+        data={products}
         renderItem={render}
-        keyExtractor={(item) => item.id} />
+        keyExtractor={(item) => item.id.toString()}
+      />
       <View style={styles.fabContainer}>
         <FAB
           style={styles.fab}
           icon="plus"
-          onPress={() => console.log('Pressed')}
+          onPress={() => props.navigation.navigate("CreateNewItem")}
         />
       </View>
     </SafeAreaView>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   fabContainer: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
-    alignSelf: 'flex-end'
+    alignSelf: "flex-end",
   },
   fab: {
-    position: 'absolute',
-    backgroundColor: '#C12121',
+    position: "absolute",
+    backgroundColor: "#C12121",
     margin: 40,
     right: 0,
     bottom: 0,
