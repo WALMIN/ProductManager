@@ -191,11 +191,13 @@ const styles = StyleSheet.create({
   },
   productType: {
     flex: 1,
+    top:'-40%',
     alignItems: "flex-start",
     justifyContent: "center",
     width: "100%",
   },
   productTypeTitle: {
+
     fontWeight: "bold",
     marginTop: 12,
   },
@@ -210,6 +212,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   input: {
+    top:'-60%',
     justifyContent: "center",
     alignContent: "center",
     width: "100%",
