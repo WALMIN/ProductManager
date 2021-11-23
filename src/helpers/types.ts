@@ -1,6 +1,9 @@
 export type StackScreens = {
   ProductList: undefined;
-  CreateNewItem: undefined;
+  AddEditItem: {
+    item: ProductItem;
+    add: boolean;
+  };
 };
 
 export interface ProductItem {
@@ -13,4 +16,5 @@ export interface ProductItem {
 export type ProductsContextState = {
   products: ProductItem[];
   addProduct: (product: ProductItem) => void;
+  updateProduct: (product: ProductItem) => void;
 };
