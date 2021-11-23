@@ -4,8 +4,7 @@ export const swedish = {
   [tokens.screens.productList.Name]: "Namn",
   [tokens.screens.productList.Type]: "Typ",
   [tokens.screens.productList.Price]: "Pris",
-  [tokens.screens.productList.NoProducts]:
-    "Du har inga produkter. Tryck på den röd knappen nedan för att lägga till en ny.",
+  [tokens.screens.productList.NoProducts]: "Du har inga produkter. Tryck på den röda knappen nedan för att lägga till en ny.",
 
   [tokens.screens.productItem.Integrated]: "Integrerad",
   [tokens.screens.productItem.Peripheral]: "Kringutrustning",
