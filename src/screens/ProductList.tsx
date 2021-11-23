@@ -21,7 +21,7 @@ import { Entypo } from "@expo/vector-icons";
 export const ProductList: React.FC<
   NativeStackScreenProps<StackScreens, "ProductList">
 > = (props) => {
-  const { products } = useContext(ProductsContext);
+  const { products, deleteProduct } = useContext(ProductsContext);
 
   const render = ({ item }: { item: IProductItem }) => {
     return (
@@ -60,7 +60,7 @@ export const ProductList: React.FC<
         renderHiddenItem={(data, rowMap) => (
           <View style={styles.rowBack}>
             <Pressable>
-              <Entypo name="trash" size={25} color="#000000" />
+              <Entypo name="trash" size={25} color="#000000" onPress={() => {deleteProduct(data.item.id)}}/>
             </Pressable>
           </View>
         )}
