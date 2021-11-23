@@ -13,9 +13,16 @@ enum ProductItem {
 }
 
 enum AddEditProduct {
+  AddTitle = "AddEditProduct-AddTitle",
+  EditTitle = "AddEditProduct-EditTitle",
   Name = "AddEditProduct-Name",
+  NameNotValid = "AddEditProduct-NameNotValid",
   Price = "AddEditProduct-Price",
+  PriceNotValid = "AddEditProduct-PriceNotValid",
+  PriceRangeNotValid = "AddEditProduct-PriceRangeNotValid",
   ProductType = "AddEditProduct-ProductType",
+  Integrated = "AddEditProduct-Integrated",
+  Peripheral = "AddEditProduct-Peripheral",
   Save = "AddEditProduct-Save",
   Add = "AddEditProduct-Add",
   Cancel = "AddEditProduct-Cancel",
