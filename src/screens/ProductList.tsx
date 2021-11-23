@@ -1,6 +1,13 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as React from "react";
-import { StyleSheet, View, SafeAreaView, FlatList, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  FlatList,
+  Text,
+  Pressable,
+} from "react-native";
 import { FAB } from "react-native-paper";
 import { ProductItem, IProductItem } from "../components/ProductItem";
 import { ProductsContext } from "../context/ProductsProvider";
@@ -8,6 +15,8 @@ import { tokens } from "../translation/appStructure";
 import { translate } from "../translation/translation";
 import { useContext } from "react";
 import { StackScreens } from "../helpers/types";
+import { SwipeListView } from "react-native-swipe-list-view";
+import { Entypo } from "@expo/vector-icons";
 
 export const ProductList: React.FC<
   NativeStackScreenProps<StackScreens, "ProductList">
@@ -38,16 +47,27 @@ export const ProductList: React.FC<
 
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
+      <SwipeListView
         ListEmptyComponent={
           <View style={styles.noContent}>
-            <Text style={styles.firstText}>{translate(tokens.screens.productList.NoProducts)}</Text>
+            <Text style={styles.firstText}>
+              {translate(tokens.screens.productList.NoProducts)}
+            </Text>
           </View>
         }
         data={products}
         renderItem={render}
-        keyExtractor={(item) => item.id.toString()}
+        renderHiddenItem={(data, rowMap) => (
+          <View style={styles.rowBack}>
+            <Pressable>
+              <Entypo name="trash" size={25} color="#000000" />
+            </Pressable>
+          </View>
+        )}
+        leftOpenValue={75}
+        rightOpenValue={-75}
       />
+
       <View style={styles.fabContainer}>
         <FAB
           style={styles.fab}
@@ -74,25 +94,27 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-
+  rowBack: {
+    position: "absolute",
+    right: 0,
+    top: "35%",
+    bottom: 0,
+    marginRight: 24,
+    alignItems: "center",
+  },
   noContent: {
-
     flex: 4,
-    marginTop: '60%',
+    marginTop: "60%",
     marginHorizontal: 20,
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   firstText: {
-
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 25,
-    fontWeight: 'bold',
-
-
+    fontWeight: "bold",
   },
 
   fabContainer: {
