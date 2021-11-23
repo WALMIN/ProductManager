@@ -7,6 +7,7 @@ import { ProductList } from "./src/screens/ProductList";
 import { tokens } from "./src/translation/appStructure";
 import { setI18nConfig, translate } from "./src/translation/translation";
 import ProductsProvider from "./src/context/ProductsProvider";
+import { StatusBar } from "react-native";
 
 export default function App() {
   setI18nConfig();
@@ -15,6 +16,7 @@ export default function App() {
   return (
     <ProductsProvider>
       <NavigationContainer>
+        <StatusBar backgroundColor="white" barStyle="dark-content" />
         <Stack.Navigator initialRouteName="ProductList">
           <Stack.Screen
             name="ProductList"

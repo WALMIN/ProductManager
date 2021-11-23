@@ -3,12 +3,10 @@ import { Text } from "react-native";
 import { ProductItem, ProductsContextState } from "../helpers/types";
 
 const contextDefaultValues: ProductsContextState = {
-  products: [
-    
-
-  ],
+  products: [],
   addProduct: () => {},
   updateProduct: () => {},
+  deleteProduct: () => {},
 };
 
 export const ProductsContext =
@@ -34,12 +32,18 @@ const ProductsProvider: FC = ({ children }) => {
     });
   };
 
+  const deleteProduct = (id: Number) => {
+    const newList = products.filter((item) => item.id !== id);
+    setProducts(newList);
+  };
+
   return (
     <ProductsContext.Provider
       value={{
         products,
         addProduct,
         updateProduct,
+        deleteProduct,
       }}
     >
       {children}
