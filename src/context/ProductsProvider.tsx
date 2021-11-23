@@ -1,20 +1,11 @@
 import React, { createContext, useState, FC } from "react";
+import { Text } from "react-native";
 import { ProductItem, ProductsContextState } from "../helpers/types";
 
 const contextDefaultValues: ProductsContextState = {
   products: [
-    {
-      id: 1,
-      name: "Mjölk",
-      price: 1.2,
-      type: 0,
-    },
-    {
-      id: 2,
-      name: "Ägg",
-      price: 3.0,
-      type: 1,
-    },
+    
+
   ],
   addProduct: () => {},
 };

@@ -1,9 +1,12 @@
 import * as React from "react";
 import { useState, useContext } from "react";
-import { StyleSheet, View, SafeAreaView, FlatList } from "react-native";
+import { StyleSheet, View, SafeAreaView, FlatList, Text } from "react-native";
 import { FAB } from "react-native-paper";
 import { ProductItem, IProductItem } from "../components/ProductItem";
 import { ProductsContext } from "../context/ProductsProvider";
+import { tokens } from "../translation/appStructure";
+import { translate } from "../translation/translation";
+
 
 export default function ProductList(props: {
   navigation: { navigate: (name: string) => void };
@@ -27,6 +30,11 @@ export default function ProductList(props: {
   return (
     <SafeAreaView style={styles.container}>
       <FlatList
+        ListEmptyComponent={
+          <View style={styles.noContent}>
+            <Text style={styles.firstText}>{translate(tokens.screens.productList.NoProducts)}</Text>
+          </View>
+        }
         data={products}
         renderItem={render}
         keyExtractor={(item) => item.id.toString()}
@@ -48,6 +56,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+
+
+  noContent: {
+
+    flex: 4,
+    marginTop: '60%',
+    marginHorizontal: 20,
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  },
+
+  firstText: {
+
+    textAlign: 'center',
+    fontSize: 25,
+    fontWeight: 'bold',
+
+
+  },
+
   fabContainer: {
     position: "absolute",
     bottom: 0,

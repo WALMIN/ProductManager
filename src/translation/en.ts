@@ -5,7 +5,7 @@ export const english = {
   [tokens.screens.productList.Type]: "Type",
   [tokens.screens.productList.Price]: "Price",
   [tokens.screens.productList.NoProducts]:
-    "You do not have any products. Press the green button below to add a new one.",
+    "You do not have any products. Press the red button below to add a new one.",
 
   [tokens.screens.productItem.Integrated]: "Integrated",
   [tokens.screens.productItem.Peripheral]: "Peripheral",
