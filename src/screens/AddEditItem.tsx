@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
   },
   productType: {
     flex: 1,
-    top:'-40%',
+    top:'-41%',
     alignItems: "flex-start",
     justifyContent: "center",
     width: "100%",
