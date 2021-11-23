@@ -8,6 +8,7 @@ const contextDefaultValues: ProductsContextState = {
 
   ],
   addProduct: () => {},
+  updateProduct: () => {},
 };
 
 export const ProductsContext =
@@ -21,11 +22,24 @@ const ProductsProvider: FC = ({ children }) => {
   const addProduct = (newProduct: ProductItem) =>
     setProducts((products) => [...products, newProduct]);
 
+  const updateProduct = (updatedProduct: ProductItem) => {
+    products.filter((product: ProductItem) => {
+      if (product.id === updatedProduct.id) {
+        product.id = updatedProduct.id;
+        product.name = updatedProduct.name;
+        product.price = updatedProduct.price;
+        product.type = updatedProduct.type;
+        setProducts([...products]);
+      }
+    });
+  };
+
   return (
     <ProductsContext.Provider
       value={{
         products,
         addProduct,
+        updateProduct,
       }}
     >
       {children}

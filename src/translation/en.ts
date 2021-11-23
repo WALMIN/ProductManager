@@ -11,9 +11,17 @@ export const english = {
   [tokens.screens.productItem.Peripheral]: "Peripheral",
   [tokens.screens.productItem.UnknownType]: "Unknown type",
 
+  [tokens.screens.addEditProduct.AddTitle]: "Create a new product",
+  [tokens.screens.addEditProduct.EditTitle]: "Edit a product",
   [tokens.screens.addEditProduct.Name]: "Name",
+  [tokens.screens.addEditProduct.NameNotValid]: "Name is not valid",
   [tokens.screens.addEditProduct.Price]: "Price",
+  [tokens.screens.addEditProduct.PriceNotValid]: "Price must be above 0",
+  [tokens.screens.addEditProduct.PriceRangeNotValid]:
+    "Price must be between 1000 and 2600",
   [tokens.screens.addEditProduct.ProductType]: "Product type",
+  [tokens.screens.addEditProduct.Integrated]: "Integrated",
+  [tokens.screens.addEditProduct.Peripheral]: "Peripheral",
   [tokens.screens.addEditProduct.Save]: "Save",
   [tokens.screens.addEditProduct.Add]: "Add",
   [tokens.screens.addEditProduct.Cancel]: "Cancel",

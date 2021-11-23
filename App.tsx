@@ -1,9 +1,9 @@
 import React from "react";
-import CreateNewItem from "./src/components/CreateNewItem";
+import { AddEditItem } from "./src/screens/AddEditItem";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { StackScreens } from "./src/helpers/types";
-import ProductList from "./src/screens/ProductList";
+import { ProductList } from "./src/screens/ProductList";
 import { tokens } from "./src/translation/appStructure";
 import { setI18nConfig, translate } from "./src/translation/translation";
 import ProductsProvider from "./src/context/ProductsProvider";
@@ -22,8 +22,8 @@ export default function App() {
             options={{ title: translate(tokens.screens.productList.Title) }}
           />
           <Stack.Screen
-            name="CreateNewItem"
-            component={CreateNewItem}
+            name="AddEditItem"
+            component={AddEditItem}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

@@ -1,16 +1,17 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as React from "react";
-import { useState, useContext } from "react";
 import { StyleSheet, View, SafeAreaView, FlatList, Text } from "react-native";
 import { FAB } from "react-native-paper";
 import { ProductItem, IProductItem } from "../components/ProductItem";
 import { ProductsContext } from "../context/ProductsProvider";
 import { tokens } from "../translation/appStructure";
 import { translate } from "../translation/translation";
+import { useContext } from "react";
+import { StackScreens } from "../helpers/types";
 
-
-export default function ProductList(props: {
-  navigation: { navigate: (name: string) => void };
-}) {
+export const ProductList: React.FC<
+  NativeStackScreenProps<StackScreens, "ProductList">
+> = (props) => {
   const { products } = useContext(ProductsContext);
 
   const render = ({ item }: { item: IProductItem }) => {
@@ -21,7 +22,15 @@ export default function ProductList(props: {
         price={item.price}
         type={item.type}
         onClick={() => {
-          props.navigation.navigate("CreateNewItem");
+          props.navigation.navigate("AddEditItem", {
+            item: {
+              id: item.id,
+              name: item.name,
+              price: item.price,
+              type: item.type,
+            },
+            add: false,
+          });
         }}
       />
     );
@@ -44,13 +53,21 @@ export default function ProductList(props: {
           style={styles.fab}
           icon="plus"
           onPress={() => {
-            props.navigation.navigate("CreateNewItem");
+            props.navigation.navigate("AddEditItem", {
+              item: {
+                id: -1,
+                name: "",
+                price: 0,
+                type: 0,
+              },
+              add: true,
+            });
           }}
         />
       </View>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
