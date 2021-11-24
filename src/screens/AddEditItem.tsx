@@ -1,17 +1,24 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import React, { useState, useContext, useEffect } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { Button, HelperText, RadioButton, TextInput, Paragraph, Dialog, Portal, Provider, IconButton } from "react-native-paper";
+import {
+  Button,
+  HelperText,
+  RadioButton,
+  TextInput,
+  Paragraph,
+  Dialog,
+  Portal,
+  Provider,
+  IconButton,
+} from "react-native-paper";
 import { ProductsContext } from "../context/ProductsProvider";
 import { ProductItem, StackScreens } from "../helpers/types";
 import { tokens } from "../translation/appStructure";
 import { translate } from "../translation/translation";
 
-
 interface IProps extends NativeStackScreenProps<StackScreens, "AddEditItem"> {}
 export const AddEditItem: React.FC<IProps> = (props) => {
-
-
   const params = props.route.params;
 
   const getTitle = () => {
@@ -37,13 +44,12 @@ export const AddEditItem: React.FC<IProps> = (props) => {
   const hideDialog = () => setVisible(false);
 
   const goBack = () => {
-  
-     if (edited) {
-       showDialog();
-     } else {
-       props.navigation.navigate("ProductList");
-     }
-  }
+    if (edited) {
+      showDialog();
+    } else {
+      props.navigation.navigate("ProductList");
+    }
+  };
 
   const getPriceNotValidText = (type: number) => {
     if (type === 1) {
@@ -78,16 +84,18 @@ export const AddEditItem: React.FC<IProps> = (props) => {
       return true;
     }
   };
-  
 
   useEffect(() => {
     props.navigation.setOptions({
       title: getTitle(),
       headerLeft: () => (
-        <IconButton icon="arrow-left" color="#000000" onPress={() => {
-         goBack()
-        }}>
-        </IconButton>
+        <IconButton
+          icon="arrow-left"
+          color="#000000"
+          onPress={() => {
+            goBack();
+          }}
+        ></IconButton>
       ),
     });
 
@@ -95,13 +103,7 @@ export const AddEditItem: React.FC<IProps> = (props) => {
     setName(params.item.name);
     setPrice(String(params.item.price));
     setProductType(String(params.item.type));
-    
   }, [edited]);
-  
-
-    
-  
- 
 
   return (
     <View style={styles.container}>
@@ -198,14 +200,25 @@ export const AddEditItem: React.FC<IProps> = (props) => {
         <View>
           <Portal>
             <Dialog visible={visible} onDismiss={hideDialog}>
-              <Dialog.Title>Unsaved!</Dialog.Title>
+              <Dialog.Title>
+                {translate(tokens.screens.addEditProduct.GoBackTitle)}
+              </Dialog.Title>
               <Dialog.Content>
-                <Paragraph>You have unsaved changes</Paragraph>
-                <Paragraph>Are you sure you want to go back?</Paragraph>
+                <Paragraph>
+                  {translate(tokens.screens.addEditProduct.GoBackMessage)}
+                </Paragraph>
               </Dialog.Content>
               <Dialog.Actions>
-                <Button onPress={() => { props.navigation.navigate('ProductList') }}>Go back</Button>
-                <Button onPress={hideDialog}>Cancel</Button>
+                <Button
+                  onPress={() => {
+                    props.navigation.navigate("ProductList");
+                  }}
+                >
+                  {translate(tokens.screens.addEditProduct.GoBack)}
+                </Button>
+                <Button onPress={hideDialog}>
+                  {translate(tokens.screens.addEditProduct.Cancel)}
+                </Button>
               </Dialog.Actions>
             </Dialog>
           </Portal>

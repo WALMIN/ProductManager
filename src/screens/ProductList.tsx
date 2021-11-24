@@ -17,8 +17,7 @@ import { useContext } from "react";
 import { StackScreens } from "../helpers/types";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { Entypo } from "@expo/vector-icons";
-import {LoadingGif} from "./LoadingGif"
-
+import { LoadingGif } from "../components/LoadingGif";
 
 export const ProductList: React.FC<
   NativeStackScreenProps<StackScreens, "ProductList">
@@ -52,7 +51,7 @@ export const ProductList: React.FC<
       <SwipeListView
         ListEmptyComponent={
           <View style={styles.noContent}>
-                    <LoadingGif />
+            <LoadingGif />
             <Text style={styles.firstText}>
               {translate(tokens.screens.productList.NoProducts)}
             </Text>
@@ -63,7 +62,14 @@ export const ProductList: React.FC<
         renderHiddenItem={(data, rowMap) => (
           <View style={styles.rowBack}>
             <Pressable>
-              <Entypo name="trash" size={25} color="#000000" onPress={() => {deleteProduct(data.item.id)}}/>
+              <Entypo
+                name="trash"
+                size={25}
+                color="#000000"
+                onPress={() => {
+                  deleteProduct(data.item.id);
+                }}
+              />
             </Pressable>
           </View>
         )}
@@ -96,7 +102,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-
   rowBack: {
     position: "absolute",
     right: 0,
@@ -113,7 +118,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-
   firstText: {
     textAlign: "center",
     top: -165,

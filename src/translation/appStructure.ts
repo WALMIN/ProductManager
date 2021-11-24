@@ -26,6 +26,9 @@ enum AddEditProduct {
   Save = "AddEditProduct-Save",
   Add = "AddEditProduct-Add",
   Cancel = "AddEditProduct-Cancel",
+  GoBackTitle = "AddEditProduct-GoBackTitle",
+  GoBackMessage = "AddEditProduct-GoBackMessage",
+  GoBack = "AddEditProduct-GoBack",
 }
 
 export const tokens = {
