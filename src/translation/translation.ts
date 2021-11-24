@@ -7,7 +7,6 @@ import { swedish } from "./sv";
 export const translate = (key: string) => i18n.t(key);
 
 const getLocale = () => {
-    console.log(Localization.locale);
     return Localization.locale.slice(0, 2); //to overcome the difference between ios and android returned locale. 
 };
 export const setI18nConfig = () => {
