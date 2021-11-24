@@ -23,11 +23,8 @@ export const AddEditItem: React.FC<IProps> = (props) => {
 
   const [id, setId] = useState(0);
   const [name, setName] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState("0");
   const [productType, setProductType] = useState("0");
-
-  const [invalidName, setInvalidName] = useState(false);
-  const [invalidPriceRange, setInvalidPriceRange] = useState(false);
 
   const getPriceNotValidText = (type: number) => {
     if (type === 1) {
@@ -37,141 +34,129 @@ export const AddEditItem: React.FC<IProps> = (props) => {
     }
   };
 
-  const checkInput = () => {
-    // Check name
+  const invalidNameInput = () => {
     if (name.trim() === "") {
-      setInvalidName(true);
+      return false;
     } else {
-      setInvalidName(false);
-    }
-
-    products.filter((product: ProductItem) => {
-      if (product.name.toLowerCase() === name.toLowerCase()) {
-        setInvalidName(true);
-      }
-    });
-
-    // Check price
-    if (Number(productType) === 0 && price > 0) {
-      setInvalidPriceRange(false);
-    } else if (Number(productType) === 1) {
-      if (price >= 1000 && price <= 2600) {
-        setInvalidPriceRange(false);
+      if (products.some((item) => item.name === name)) {
+        return true;
       } else {
-        setInvalidPriceRange(true);
+        return false;
+      }
+    }
+  };
+
+  const invalidPriceRange = () => {
+    if (Number(productType) === 0 && Number(price) > 0) {
+      return false;
+    } else if (Number(productType) === 1) {
+      if (Number(price) >= 1000 && Number(price) <= 2600) {
+        return false;
+      } else {
+        return true;
       }
     } else {
-      setInvalidPriceRange(true);
+      return true;
     }
   };
 
   useEffect(() => {
+    props.navigation.setOptions({
+      title: getTitle(),
+    });
+
     setId(params.item.id);
     setName(params.item.name);
-    setPrice(params.item.price);
+    setPrice(String(params.item.price));
     setProductType(String(params.item.type));
   }, []);
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>{getTitle()}</Text>
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.input}
-          label={translate(tokens.screens.addEditProduct.Name)}
-          value={name}
-          onChangeText={(output) => {
-            setName(output.trim());
-            setInvalidName(false);
-          }}
-        />
-        <HelperText style={styles.helper} type="error" visible={invalidName}>
-          {translate(tokens.screens.addEditProduct.NameNotValid)}
-        </HelperText>
+      <TextInput
+        mode="outlined"
+        style={styles.input}
+        label={translate(tokens.screens.addEditProduct.Name)}
+        value={name}
+        onChangeText={(output) => {
+          setName(output.trim());
+        }}
+      />
+      <HelperText
+        style={styles.helper}
+        type="error"
+        visible={invalidNameInput()}
+      >
+        {translate(tokens.screens.addEditProduct.NameNotValid)}
+      </HelperText>
 
-        <TextInput
-          style={styles.input}
-          label={translate(tokens.screens.addEditProduct.Price)}
-          value={String(price)}
-          keyboardType="numeric"
-          onChangeText={(output) => {
-            setPrice(Number(output));
-            setInvalidPriceRange(false);
+      <TextInput
+        mode="outlined"
+        style={styles.input}
+        label={translate(tokens.screens.addEditProduct.Price)}
+        value={String(price)}
+        keyboardType="numeric"
+        onChangeText={(output) => {
+          setPrice(output);
+        }}
+      />
+      <HelperText
+        style={styles.helper}
+        type="error"
+        visible={invalidPriceRange()}
+      >
+        {getPriceNotValidText(Number(productType))}
+      </HelperText>
+
+      <View style={styles.productType}>
+        <RadioButton.Group
+          onValueChange={(newValue) => {
+            setProductType(newValue);
           }}
-        />
-        <HelperText
-          style={styles.helper}
-          type="error"
-          visible={invalidPriceRange}
+          value={productType}
         >
-          {getPriceNotValidText(Number(productType))}
-        </HelperText>
-
-        <View style={styles.productType}>
-          <RadioButton.Group
-            onValueChange={(newValue) => {
-              setProductType(newValue);
-              setInvalidPriceRange(false);
-            }}
-            value={productType}
-          >
-            <Text style={styles.productTypeTitle}>
-              {translate(tokens.screens.addEditProduct.ProductType)}
-            </Text>
-            <View style={styles.radioButton}>
-              <RadioButton value={"0"} />
-              <Text>{translate(tokens.screens.addEditProduct.Integrated)}</Text>
-            </View>
-            <View style={styles.radioButton}>
-              <RadioButton value={"1"} />
-              <Text>{translate(tokens.screens.addEditProduct.Peripheral)}</Text>
-            </View>
-          </RadioButton.Group>
-        </View>
+          <Text style={styles.productTypeTitle}>
+            {translate(tokens.screens.addEditProduct.ProductType)}
+          </Text>
+          <View style={styles.radioButton}>
+            <RadioButton value={"0"} />
+            <Text>{translate(tokens.screens.addEditProduct.Integrated)}</Text>
+          </View>
+          <View style={styles.radioButton}>
+            <RadioButton value={"1"} />
+            <Text>{translate(tokens.screens.addEditProduct.Peripheral)}</Text>
+          </View>
+        </RadioButton.Group>
       </View>
 
-      <View style={styles.buttonsContainer}>
-        <Button
-          onPress={() => {
-            checkInput();
-
-            if (
-              !invalidName &&
-              !invalidPriceRange &&
-              name.trim() !== "" &&
-              price > 0
-            ) {
-              if (params.add) {
-                addProduct({
-                  id: products.length + 1,
-                  name: name,
-                  price: Number(price),
-                  type: Number(productType),
-                });
-              } else {
-                updateProduct({
-                  id: id,
-                  name: name,
-                  price: Number(price),
-                  type: Number(productType),
-                });
-              }
-
-              props.navigation.navigate("ProductList");
+      <Button
+        style={styles.btn}
+        icon="content-save-outline"
+        mode="contained"
+        onPress={() => {
+          if (!invalidNameInput() && !invalidPriceRange()) {
+            if (params.add) {
+              addProduct({
+                id: products.length + 1,
+                name: name,
+                price: Number(price),
+                type: Number(productType),
+              });
+            } else {
+              updateProduct({
+                id: id,
+                name: name,
+                price: Number(price),
+                type: Number(productType),
+              });
             }
-          }}
-        >
-          {translate(tokens.screens.addEditProduct.Save)}
-        </Button>
 
-        <Button
-          onPress={() => {
             props.navigation.navigate("ProductList");
-          }}
-        >
-          {translate(tokens.screens.addEditProduct.Cancel)}
-        </Button>
-      </View>
+          }
+        }}
+      >
+        {translate(tokens.screens.addEditProduct.Save)}
+      </Button>
     </View>
   );
 };
@@ -179,55 +164,29 @@ export const AddEditItem: React.FC<IProps> = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
     alignItems: "center",
-    justifyContent: "center",
-  },
-  label: {
-    flex: 1,
-    fontSize: 30,
-    marginTop: 50,
-    justifyContent: "flex-start",
+    padding: 12,
   },
   productType: {
-    flex: 1,
-    top:'-41%',
-    alignItems: "flex-start",
-    justifyContent: "center",
     width: "100%",
   },
   productTypeTitle: {
-
     fontWeight: "bold",
-    marginTop: 12,
+    marginTop: 6,
   },
   radioButton: {
     alignItems: "center",
     flexDirection: "row",
   },
-  inputContainer: {
-    flex: 1,
-    width: "100%",
-    justifyContent: "flex-start",
-    paddingHorizontal: 12,
-  },
   input: {
-    top:'-60%',
-    justifyContent: "center",
-    alignContent: "center",
     width: "100%",
   },
   helper: {
     width: "100%",
     marginBottom: 4,
   },
-  buttonsContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
-    alignSelf: "flex-end",
-    width: "100%",
-    height: 40,
+  btn: {
+    alignSelf: "flex-start",
+    marginTop: 16,
   },
 });

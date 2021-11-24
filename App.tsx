@@ -26,7 +26,9 @@ export default function App() {
           <Stack.Screen
             name="AddEditItem"
             component={AddEditItem}
-            options={{ headerShown: false }}
+            options={{
+              title: translate(tokens.screens.addEditProduct.AddTitle),
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
