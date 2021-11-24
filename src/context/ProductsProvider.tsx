@@ -1,9 +1,15 @@
 import React, { createContext, useState, FC } from "react";
-import { Text } from "react-native";
 import { ProductItem, ProductsContextState } from "../helpers/types";
 
 const contextDefaultValues: ProductsContextState = {
-  products: [],
+  products: [
+    {
+      id: 0,
+      name: "Mjölk",
+      price: 1.2,
+      type: 0,
+    },
+  ],
   addProduct: () => {},
   updateProduct: () => {},
   deleteProduct: () => {},

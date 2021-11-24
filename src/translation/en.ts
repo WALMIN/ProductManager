@@ -25,4 +25,9 @@ export const english = {
   [tokens.screens.addEditProduct.Save]: "Save",
   [tokens.screens.addEditProduct.Add]: "Add",
   [tokens.screens.addEditProduct.Cancel]: "Cancel",
+  [tokens.screens.addEditProduct.GoBackTitle]: "Unsaved changes",
+  [tokens.screens.addEditProduct.GoBackMessage]:
+    "You have unsaved changes, are you sure you want to go back?",
+  [tokens.screens.addEditProduct.GoBack]:
+    "Go back",
 };
