@@ -17,6 +17,8 @@ import { useContext } from "react";
 import { StackScreens } from "../helpers/types";
 import { SwipeListView } from "react-native-swipe-list-view";
 import { Entypo } from "@expo/vector-icons";
+import {LoadingGif} from "./LoadingGif"
+
 
 export const ProductList: React.FC<
   NativeStackScreenProps<StackScreens, "ProductList">
@@ -50,6 +52,7 @@ export const ProductList: React.FC<
       <SwipeListView
         ListEmptyComponent={
           <View style={styles.noContent}>
+                    <LoadingGif />
             <Text style={styles.firstText}>
               {translate(tokens.screens.productList.NoProducts)}
             </Text>
@@ -113,6 +116,7 @@ const styles = StyleSheet.create({
 
   firstText: {
     textAlign: "center",
+    top: -165,
     fontSize: 25,
     fontWeight: "bold",
   },
