@@ -38,7 +38,7 @@ export const AddEditItem: React.FC<IProps> = (props) => {
     if (name.trim() === "") {
       return false;
     } else {
-      if (products.some((item) => item.name === name)) {
+      if (products.some((item) => item.name === name && item.id !== id)) {
         return true;
       } else {
         return false;
