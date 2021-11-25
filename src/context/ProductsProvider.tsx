@@ -1,15 +1,9 @@
-import React, { createContext, useState, FC } from "react";
+import React, { createContext, useState, FC, useEffect } from "react";
 import { ProductItem, ProductsContextState } from "../helpers/types";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const contextDefaultValues: ProductsContextState = {
-  products: [
-    {
-      id: 0,
-      name: "Mjölk",
-      price: 1.2,
-      type: 0,
-    },
-  ],
+  products: [],
   addProduct: () => {},
   updateProduct: () => {},
   deleteProduct: () => {},
@@ -23,24 +17,46 @@ const ProductsProvider: FC = ({ children }) => {
     contextDefaultValues.products
   );
 
-  const addProduct = (newProduct: ProductItem) =>
+  useEffect(() => {
+    const init = async () => {
+      const productsString = await AsyncStorage.getItem("products");
+      if (productsString && productsString.length > 0) {
+        setProducts(JSON.parse(productsString) as ProductItem[]);
+      }
+    };
+    init();
+  }, []);
+
+  const addProduct = async (newProduct: ProductItem) => {
     setProducts((products) => [...products, newProduct]);
+    await saveDataToAsyncStorage([...products, newProduct]);
+  };
 
   const updateProduct = (updatedProduct: ProductItem) => {
-    products.filter((product: ProductItem) => {
+    products.filter(async (product: ProductItem) => {
       if (product.id === updatedProduct.id) {
         product.id = updatedProduct.id;
         product.name = updatedProduct.name;
         product.price = updatedProduct.price;
         product.type = updatedProduct.type;
         setProducts([...products]);
+        await saveDataToAsyncStorage([...products]);
       }
     });
   };
 
-  const deleteProduct = (id: Number) => {
+  const deleteProduct = async (id: Number) => {
     const newList = products.filter((item) => item.id !== id);
     setProducts(newList);
+    await saveDataToAsyncStorage(newList);
+  };
+
+  const saveDataToAsyncStorage = async (value: ProductItem[]) => {
+    try {
+      await AsyncStorage.setItem("products", JSON.stringify(value));
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

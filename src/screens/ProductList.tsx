@@ -1,13 +1,6 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import * as React from "react";
-import {
-  StyleSheet,
-  View,
-  SafeAreaView,
-  FlatList,
-  Text,
-  Pressable,
-} from "react-native";
+import { StyleSheet, View, SafeAreaView, Text, Pressable } from "react-native";
 import { FAB } from "react-native-paper";
 import { ProductItem, IProductItem } from "../components/ProductItem";
 import { ProductsContext } from "../context/ProductsProvider";
