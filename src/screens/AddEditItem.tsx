@@ -13,7 +13,7 @@ import {
   IconButton,
 } from "react-native-paper";
 import { ProductsContext } from "../context/ProductsProvider";
-import { ProductItem, StackScreens } from "../helpers/types";
+import { StackScreens } from "../helpers/types";
 import { tokens } from "../translation/appStructure";
 import { translate } from "../translation/translation";
 
@@ -63,7 +63,7 @@ export const AddEditItem: React.FC<IProps> = (props) => {
     if (name.trim() === "") {
       return false;
     } else {
-      if (products.some((item) => item.name === name && item.id !== id)) {
+      if (products.find((item) => item.name === name && item.id !== id)) {
         return true;
       } else {
         return false;
@@ -115,7 +115,6 @@ export const AddEditItem: React.FC<IProps> = (props) => {
         onChangeText={(output) => {
           setName(output.trim());
           setedited(true);
-          console.log(edited);
         }}
       />
       <HelperText
@@ -175,7 +174,7 @@ export const AddEditItem: React.FC<IProps> = (props) => {
           if (!invalidNameInput() && !invalidPriceRange()) {
             if (params.add) {
               addProduct({
-                id: products.length + 1,
+                id: products.length + 1 + Math.floor(Math.random() * 100),
                 name: name,
                 price: Number(price),
                 type: Number(productType),
@@ -188,7 +187,6 @@ export const AddEditItem: React.FC<IProps> = (props) => {
                 type: Number(productType),
               });
             }
-
             props.navigation.navigate("ProductList");
           }
         }}

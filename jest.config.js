@@ -1,4 +1,4 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 module.exports = {
-  preset: "react-native",
+  preset: "jest-expo",
 };
